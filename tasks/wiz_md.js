@@ -28,6 +28,7 @@ module.exports = function (grunt) {
 
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
+            debug: false,
             contentFn: contentFn,
             completeFn: completeFn
         });
@@ -36,9 +37,9 @@ module.exports = function (grunt) {
         var i = 0;
 
         var checkDone = function (index) {
-            console.log(index, total);
+            //console.log(index, total);
             if (index >= total) {
-                console.log("Next to done()");
+                //console.log("Next to done()");
                 done();
             }
         };
@@ -56,17 +57,15 @@ module.exports = function (grunt) {
                 }
             });
 
-            //total = srcArr.length;
-
             var dest = f.dest;
 
             srcArr.forEach(function (src) {
                 total++;
                 nodeWizMd(src, dest, {
-                    debug:true,
+                    debug: options.debug,
                     contentFn: options.contentFn,
                     completeFn: function () {
-                        console.log('completeCallback for %s', src);
+                        //console.log('completeCallback for %s', src);
                         options.completeFn();
 
                         i++;

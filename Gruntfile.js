@@ -33,14 +33,20 @@ module.exports = function (grunt) {
             default_options: {
                 options: {},
                 files: {
-                    'tmp/': ['test/fixtures/Array','test/fixtures/Object']
-                    //'tmp/': ['test/fixtures/Array']
+                    'tmp/': ['test/fixtures/Array', 'test/fixtures/Object']
                 }
             },
-            default_options2: {
-                options: {},
+            custom_options: {
+                options: {
+                    debug: true,
+                    contentFn: function (content) {
+                        return content.replace('test', 'helinjiang');
+                    }, completeFn: function () {
+                        console.log('all is complete');
+                    }
+                },
                 files: {
-                    'tmp/': ['test/fixtures/Object']
+                    'tmp/': ['test/fixtures/test']
                 }
             }
         },

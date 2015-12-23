@@ -1,6 +1,6 @@
 # grunt-wiz-md
 
-> Get markdown files from wiz notes.
+> Get markdown files from wiz notes based on [node-wiz-md](https://www.npmjs.com/package/node-wiz-md)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -36,48 +36,60 @@ grunt.initConfig({
 ```
 
 ### Options
+For more detail, please go to [node-wiz-md](https://www.npmjs.com/package/node-wiz-md).
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.debug
+Type: `Boolean`
+Default value: `false`
 
-A string value that is used to do something with whatever.
+Whether to show debug loggings.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.contentFn
+Type: `Function`
+Default value: `null`
 
-A string value that is used to do something else with whatever else.
+Change the content. Support one param `content`, and return a new content.
+
+
+#### options.completeFn
+Type: `Function`
+Default value: `null`
+
+Run after node-wiz-md complete.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+
 
 ```js
 grunt.initConfig({
   wiz_md: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'tmp/': ['test/fixtures/Array', 'test/fixtures/Object']
     },
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+
 
 ```js
 grunt.initConfig({
   wiz_md: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+        debug: true,
+        contentFn: function (content) {
+            return content.replace('test', 'helinjiang');
+        }, completeFn: function () {
+            console.log('all is complete');
+        }
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+        'tmp/': ['test/fixtures/test']
+    }
   },
 });
 ```
@@ -86,4 +98,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+2015.12.23 v0.2.0 Add test and modify readme. Update [node-wiz-md](https://www.npmjs.com/package/node-wiz-md) to v 0.3.0
